@@ -1,0 +1,7 @@
+# depslib dependency file v1.0
+1507217545 source:c:\users\alex\documents\code\taylor series\main.cpp
+	<cmath>
+	<cstdio>
+	<cstdlib>
+	<iostream>
+
