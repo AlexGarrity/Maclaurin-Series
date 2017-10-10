@@ -27,20 +27,20 @@ long double Absolute (long double x)
 
 long double Ln (long double x)
 {
-    if (x == 1) return 0;
-    long double total = x - 1;
-    for (int i = 1; i <= 32; i++)
+    x = 1.0 - x;
+    long double total = 0;
+    for (int i = 1; i < 32; i++)
     {
-        long double powx = pow(x,i);
+        long double powx = pow (x, i);
         long double delta = powx / i;
-        if (i % 2) total -= delta;
-        else total += delta;
+        total -= delta;
     }
     return total;
 }
 
 long double Log (long double x, long double base)
 {
+    //Trying to find a different series for ln, such that this actually works...
     return Ln(x)/Ln(base);
 }
 
@@ -92,45 +92,45 @@ int main ()
     cout << "Started... " << endl;
 
     long double computerCos = cos(1.9);
-    long double taylorCos = Cos(1.9);
+    long double maclaurinCos = Cos(1.9);
 
     cout.precision(8);
 
-    cout << "Taylor's Cos of 1.9 radians is: \t" << taylorCos << endl;
+    cout << "Maclaurin's Cos of 1.9 radians is: \t" << maclaurinCos << endl;
     cout << "stdlib Cos of 1.9 radians is: \t \t" << computerCos << endl;
-    cout << "Difference of Cos values: \t \t" << Absolute(taylorCos-computerCos) << endl;
+    cout << "Difference of Cos values: \t \t" << Absolute(maclaurinCos-computerCos) << endl;
 
     long double computerSin = sin(1.9);
-    long double taylorSin = Sin(1.9);
+    long double maclaurinSin = Sin(1.9);
 
-    cout << "\nTaylor's Sin of 1.9 radians is: \t" << taylorSin << endl;
+    cout << "\nMaclaurin's Sin of 1.9 radians is: \t" << maclaurinSin << endl;
     cout << "stdlib Sin of 1.9 radians is: \t \t" << computerSin << endl;
-    cout << "Difference of Sin values: \t \t" << Absolute(taylorSin-computerSin) << endl;
+    cout << "Difference of Sin values: \t \t" << Absolute(maclaurinSin-computerSin) << endl;
 
     long double computerTan = sin(1.9) / cos(1.9);
-    long double taylorTan = Sin(1.9) / Cos(1.9);
+    long double maclaurinTan = Sin(1.9) / Cos(1.9);
 
-    cout << "\nTaylor's Tan of 1.9 radians is: \t" << taylorTan << endl;
+    cout << "\nMaclaurin's Tan of 1.9 radians is: \t" << maclaurinTan << endl;
     cout << "stdlib Tan of 1.9 radians is: \t \t" << computerTan << endl;
-    cout << "Difference of Tan values: \t \t" << Absolute(taylorTan-computerTan) << endl;
+    cout << "Difference of Tan values: \t \t" << Absolute(maclaurinTan-computerTan) << endl;
 
-    long double taylorEuler = Euler(1);
+    long double maclaurinEuler = Euler(1);
     long double computerEuler = exp(1);
 
-    cout << "\nTaylor's Euler ^ 1 is: \t \t \t" << taylorEuler << endl;
+    cout << "\nMaclaurin's Euler ^ 1 is: \t \t \t" << maclaurinEuler << endl;
     cout << "stdlib Euler ^ 1 is: \t \t \t" << computerEuler << endl;
-    cout << "Difference of Euler values is: \t \t" << Absolute(taylorEuler-computerEuler) << endl;
+    cout << "Difference of Euler values is: \t \t" << Absolute(maclaurinEuler-computerEuler) << endl;
 
-    long double taylorLn = Ln(0.5);
+    long double maclaurinLn = Ln(0.5);
     long double computerLn = log(0.5);
 
-    cout << "\nTaylor's ln(0.5) is: \t \t \t" << taylorLn << endl;
+    cout << "\nMaclaurin's ln(0.5) is: \t \t \t" << maclaurinLn << endl;
     cout << "stdlib ln(0.5) is: \t \t \t" << computerLn << endl;
-    cout << "Difference of ln values is: \t \t" << Absolute(taylorLn-computerLn) << std::endl;
+    cout << "Difference of ln values is: \t \t" << Absolute(maclaurinLn-computerLn) << std::endl;
 
     //Skipping log until alternative ln series is found
 
-    //long double taylorLog = log(3,10);
+    //long double maclaurinLog = log(3,10);
     //long double computerLog = log(3)/log(10);
 
     return 0;
